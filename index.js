@@ -1,10 +1,11 @@
 const express = require("express");
 const helmet = require("helmet");
-
+const dotenv = require("dotenv");
 // Routes
 const Album = require("./routes/AlbumRoute");
 const Image = require("./routes/ImageRoute");
 
+dotenv.config();
 const app = express();
 const port = 3001;
 
