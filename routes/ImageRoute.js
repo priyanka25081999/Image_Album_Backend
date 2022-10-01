@@ -8,7 +8,9 @@ aws.config.update({ region: "us-east-1" });
 s3 = new aws.S3({ apiVersion: "2006-03-01" });
 
 imageRouter.get("/", (req, res) => {
-  if (!req.body.hasOwnProperty("bucket")) {
+  const bucket = req.query.bucket;
+
+  if (bucket === undefined) {
     return res.status(500).json({
       isDone: false,
       error: {
@@ -17,7 +19,7 @@ imageRouter.get("/", (req, res) => {
     });
   }
 
-  if (req.body.bucket.trim() === "") {
+  if (bucket.trim() === "") {
     return res.status(500).json({
       isDone: false,
       error: {
@@ -27,7 +29,7 @@ imageRouter.get("/", (req, res) => {
   }
 
   var bucketParams = {
-    Bucket: req.body.bucket,
+    Bucket: bucket,
   };
 
   s3.listObjects(bucketParams, function (err, data) {
@@ -36,7 +38,7 @@ imageRouter.get("/", (req, res) => {
       return res.status(500).json({ isDone: false, error: err });
     } else {
       console.log("Success", data);
-      return res.status(200).json({ isDone: true, result: data });
+      return res.status(200).json({ isDone: true, result: data.Contents });
     }
   });
 });

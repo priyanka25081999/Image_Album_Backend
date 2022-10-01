@@ -1,6 +1,8 @@
 const express = require("express");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
+const cors = require("cors");
+
 // Routes
 const Album = require("./routes/AlbumRoute");
 const Image = require("./routes/ImageRoute");
@@ -9,6 +11,7 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
