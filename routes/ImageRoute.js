@@ -43,33 +43,12 @@ imageRouter.get("/", (req, res) => {
   });
 });
 
-imageRouter.put("/", (req, res) => {
-  if (!req.body.hasOwnProperty("bucket")) {
-    return res.status(500).json({
-      isDone: false,
-      error: {
-        message: "Please enter bucket name",
-      },
-    });
-  }
-
-  if (req.body.bucket.trim() === "") {
-    return res.status(500).json({
-      isDone: false,
-      error: {
-        message: "Please enter valid bucket name",
-      },
-    });
-  }
-
-  const bucket = req.body.bucket;
-  const imageName = req.body.imageName;
-  const imageBody = req.body.imageBody;
-
+imageRouter.post("/", (req, res) => {
+  const file = req.files.file;
   var uploadParams = {
-    Bucket: bucket,
-    Key: imageName,
-    Body: imageBody,
+    Bucket: req.body.bucket,
+    Key: file.name,
+    Body: file.data,
     ACL: "public-read",
   };
 
