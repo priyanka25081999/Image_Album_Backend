@@ -64,4 +64,42 @@ imageRouter.post("/", (req, res) => {
   });
 });
 
+imageRouter.delete("/", (req, res) => {
+  const bucket = req.query.bucket;
+  const object = req.query.key;
+
+  if (bucket === undefined || object === undefined) {
+    return res.status(500).json({
+      isDone: false,
+      error: {
+        message: "Please enter valid data",
+      },
+    });
+  }
+
+  if (bucket.trim() === "" || bucket.trim() === "") {
+    return res.status(500).json({
+      isDone: false,
+      error: {
+        message: "Please enter valid name",
+      },
+    });
+  }
+
+  var bucketParams = {
+    Bucket: bucket,
+    Key: object,
+  };
+
+  s3.deleteObject(bucketParams, function (err, data) {
+    if (err) {
+      console.log("Error", err);
+      return res.status(500).json({ isDone: false, error: err });
+    } else {
+      console.log("Success", data);
+      return res.status(200).json({ isDone: true, result: data });
+    }
+  });
+});
+
 module.exports = imageRouter;
