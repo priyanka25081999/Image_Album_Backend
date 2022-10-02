@@ -20,7 +20,7 @@ albumRouter.get("/", async (req, res) => {
 });
 
 albumRouter.put("/", (req, res) => {
-  if (!req.body.hasOwnProperty("bucket")) {
+  if (!req.query.hasOwnProperty("bucket")) {
     return res.status(400).json({
       isDone: false,
       error: {
@@ -28,7 +28,7 @@ albumRouter.put("/", (req, res) => {
       },
     });
   }
-  if (req.body.bucket.trim() === "") {
+  if (req.query.bucket.trim() === "") {
     return res.status(400).json({
       isDone: false,
       error: {
@@ -37,7 +37,7 @@ albumRouter.put("/", (req, res) => {
     });
   }
   var bucketParams = {
-    Bucket: req.body.bucket,
+    Bucket: req.query.bucket,
     ACL: "public-read",
   };
 
