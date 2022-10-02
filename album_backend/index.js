@@ -6,7 +6,6 @@ const fileupload = require("express-fileupload");
 
 // Routes
 const Album = require("./routes/AlbumRoute");
-const Image = require("./routes/ImageRoute");
 
 dotenv.config();
 const app = express();
@@ -18,12 +17,11 @@ app.use(express.json());
 app.use(helmet());
 
 app.use("/album", Album);
-app.use("/image", Image);
 
 app.get("/", (req, res) => {
   res.send("Album Route API");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Album API is listening on port ${port}`);
 });
