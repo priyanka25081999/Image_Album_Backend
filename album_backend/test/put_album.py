@@ -17,6 +17,6 @@ headers = {
 }
 
 response = requests.request("PUT", url, headers=headers, params={
-    "bucket": "ps123"
+    "bucket": "san128"
 })
 print(response.text)
