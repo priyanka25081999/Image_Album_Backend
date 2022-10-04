@@ -9,7 +9,7 @@ const Album = require("./routes/AlbumRoute");
 
 dotenv.config();
 const app = express();
-const port = 3001;
+const port = 8080;
 
 app.use(fileupload());
 app.use(cors());
