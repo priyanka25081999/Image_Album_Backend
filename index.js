@@ -9,7 +9,7 @@ const Image = require("./routes/ImageRoute");
 
 dotenv.config();
 const app = express();
-const port = 3002;
+const port = 8080;
 
 app.use(fileupload());
 app.use(cors());
