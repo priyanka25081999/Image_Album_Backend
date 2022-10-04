@@ -9,7 +9,7 @@ const Image = require("./routes/ImageRoute");
 
 dotenv.config();
 const app = express();
-const port = 8080;
+const port = 3002;
 
 app.use(fileupload());
 app.use(cors());
@@ -22,6 +22,6 @@ app.get("/", (req, res) => {
   res.send("Album Route API");
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Image API is listening on port ${port}`);
 });
